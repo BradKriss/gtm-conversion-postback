@@ -1,5 +1,5 @@
 homepage: "https://brandxads.com"
-documentation: "https://github.com/BrandXads/gtm-conversion-postback/blob/main/README%2Cmd"
+documentation: "https://github.com/BrandXads/gtm-conversion-postback/blob/main/README.md"
 versions:
   - sha: 8edf3f3938217ab22e3e0d6ec488086a7e1e0b46
     changeNotes: Initial release.
