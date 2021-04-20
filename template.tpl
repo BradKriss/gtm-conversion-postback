@@ -150,13 +150,14 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
-// Enter your template code here.
 const queryPermission = require('queryPermission');
-
 const sendPixel = require('sendPixel');
 const encodeUri = require('encodeUri');
 const encodeUriComponent = require('encodeUriComponent');
 
+// Clean up undefined values
+// GTM will pass undefined as a written out string 
+// which will cause errors when firing the pixel
 if(typeof(data.requestID) === 'undefined'){
   data.requestID = "";
 }
@@ -167,14 +168,17 @@ if(typeof(data.transactionID) === 'undefined'){
 
 let url = encodeUri("https://"+data.domain+"/p.ashx?f=pb");
 
+// Append Offer or Advertiser ID to the url
 if(data.pixelType === 'offer') {
   url += "&o="+data.offerID;
 } else {
   url += "&a="+data.advertiserID;
 }
 
+// Append Request and Transaction IDs to url
 url += "&e="+data.eventID+"&r="+data.requestID+"&t="+data.transactionID;
 
+// Send the pixel, signal to GTM Success or Fail state
 if (queryPermission('send_pixel', url)) {
   sendPixel(
     url, 
